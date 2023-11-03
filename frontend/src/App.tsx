@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <div className="flex flex-col items-center justify-center h-full">
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap justify-center">
           <Button
             className="text-[30px]"
             onClick={() =>
@@ -36,25 +36,29 @@ function App() {
             <br />
             that daw
           </Button>
-          <Button
-            className="text-[30px]"
-            onClick={() =>
-              fetch("http://192.168.0.193:3000/text-to-speech", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  text: text,
-                }),
-              })
-            }
-          >
-            Caricias
-          </Button>
         </div>
 
-        <textarea value={text} onChange={(e) => setText(e.target.value)} />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetch("http://192.168.0.193:3000/text-to-speech", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                text: text,
+              }),
+            });
+          }}
+        >
+          <input
+            className="w-[328px] h-[40px] p-2"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+          <input type="submit" hidden />
+        </form>
       </div>
     </>
   );

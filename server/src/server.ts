@@ -2,8 +2,10 @@ import express from 'express';
 import { join } from 'path';
 import ps from 'play-sound';
 import bodyParser from 'body-parser';
-import say from 'say';
+import gtts from 'node-gtts';
 import cors from 'cors';
+
+const esGtts = gtts("es");
 
 const app = express();
 const PORT = 3000;
@@ -45,11 +47,12 @@ app.post('/can-i-pet', (req, res) => {
 });
 
 app.post('/text-to-speech', (req, res) => {
-    console.log(req.body)
+    const filepath = join(__dirname, "temp.mp3");
 
-    say.speak(req.body.text, undefined, undefined, console.log)
-
-    res.send('SE HABLO!');
+    esGtts.save(filepath, req.body.text, function () {
+        player.play(filepath)
+        res.send('SE HABLO!');
+    })
 });
 
 
