@@ -4,6 +4,7 @@ import ps from 'play-sound';
 import bodyParser from 'body-parser';
 import gtts from 'node-gtts';
 import cors from 'cors';
+import { io, sendFile } from "./socket";
 
 const esGtts = gtts("es");
 
@@ -46,6 +47,12 @@ app.post('/can-i-pet', (req, res) => {
     res.send('HAMBRE!');
 });
 
+app.post('/so-tired', (req, res) => {
+    player.play(join(__dirname, './assets/estoy-cansado-jefe.mp3'))
+    res.send('HAMBRE!');
+});
+
+
 app.post('/text-to-speech', (req, res) => {
     const filepath = join(__dirname, "temp.mp3");
 
@@ -53,6 +60,24 @@ app.post('/text-to-speech', (req, res) => {
         player.play(filepath)
         res.send('SE HABLO!');
     })
+});
+
+app.post('/send-to-user', async (req, res) => {
+    const socketId = req.body.id;
+    const message = req.body.text;
+
+    const filepath = join(__dirname, "temp_socket.mp3");
+
+    esGtts.save(filepath, message, async () => {
+        const socket = io.sockets.sockets.get(socketId)
+
+        if (socket) {
+            await sendFile(filepath, socket)
+        }
+
+        res.send('Se mando');
+    })
+
 });
 
 

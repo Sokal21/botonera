@@ -7,6 +7,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 server/src/temp.mp3
+server/src/temp_socket.mp3
+server/src/users
 
 node_modules
 dist
