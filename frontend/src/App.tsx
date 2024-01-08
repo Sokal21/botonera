@@ -71,7 +71,7 @@ const Botonera: React.FC<{ user: string }> = ({ user }) => {
           Alerta
           <br /> do MACACO
         </Button>
-        <Button
+        {/* <Button
           className="text-[30px]"
           onClick={() =>
             fetch("http://192.168.0.193:3000/can-i-pet", { method: "POST" })
@@ -80,7 +80,7 @@ const Botonera: React.FC<{ user: string }> = ({ user }) => {
           Pet
           <br />
           that daw
-        </Button>
+        </Button> */}
         <Button
           className="text-[30px]"
           onClick={() =>
@@ -90,6 +90,14 @@ const Botonera: React.FC<{ user: string }> = ({ user }) => {
           Estoy
           <br />
           cansado jefe
+        </Button>
+        <Button
+          className="text-[30px]"
+          onClick={() =>
+            fetch("http://192.168.0.193:3000/two-balls", { method: "POST" })
+          }
+        >
+          Dos bolitas
         </Button>
       </div>
 

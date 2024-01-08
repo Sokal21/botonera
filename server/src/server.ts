@@ -52,6 +52,10 @@ app.post('/so-tired', (req, res) => {
     res.send('HAMBRE!');
 });
 
+app.post('/two-balls', (req, res) => {
+    player.play(join(__dirname, './assets/dos-bolitas.mp3'))
+    res.send('HAMBRE!');
+});
 
 app.post('/text-to-speech', (req, res) => {
     const filepath = join(__dirname, "temp.mp3");
